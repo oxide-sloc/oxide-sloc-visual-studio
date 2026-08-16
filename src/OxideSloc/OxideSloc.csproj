@@ -66,6 +66,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\OutputWindowLog.cs" />
     <Compile Include="Services\PlainMetrics.cs" />
+    <Compile Include="Services\SlocArgs.cs" />
     <Compile Include="Services\SlocRunner.cs" />
     <Compile Include="ToolWindows\SlocToolWindow.cs" />
     <Compile Include="ToolWindows\SlocToolWindowControl.cs" />

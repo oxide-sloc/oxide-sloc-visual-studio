@@ -1,0 +1,37 @@
+name: publish
+
+# Publishes the VSIX to the Visual Studio Marketplace when a GitHub Release is
+# published, or on manual dispatch. The publish step self-skips unless the
+# VS_MARKETPLACE_PAT secret is configured, so this workflow is inert until you
+# create a Marketplace publisher and add the token.
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: windows-2022
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build VSIX
+        run: msbuild OxideSloc.sln -restore -t:Build -p:Configuration=Release -p:DeployExtension=false
+
+      - name: Publish to Visual Studio Marketplace
+        env:
+          VS_MARKETPLACE_PAT: ${{ secrets.VS_MARKETPLACE_PAT }}
+        if: ${{ env.VS_MARKETPLACE_PAT != '' }}
+        shell: pwsh
+        run: |
+          $vsix = Get-ChildItem src/OxideSloc/bin/Release/*.vsix | Select-Object -First 1
+          if (-not $vsix) { throw "No .vsix found to publish." }
+          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+          $publisher = & $vswhere -latest -find "**\VSSDK\VisualStudioIntegration\Tools\Bin\VsixPublisher.exe" |
+            Select-Object -First 1
+          if (-not $publisher) { throw "VsixPublisher.exe not found on the runner." }
+          & $publisher publish -payload "$($vsix.FullName)" -publishManifest vs-publish.json -personalAccessToken $env:VS_MARKETPLACE_PAT
