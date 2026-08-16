@@ -1,0 +1,31 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  vsix:
+    runs-on: windows-2022
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Restore
+        run: msbuild OxideSloc.sln -t:Restore -p:Configuration=Release
+
+      - name: Build VSIX
+        run: msbuild OxideSloc.sln -t:Build -p:Configuration=Release -p:DeployExtension=false
+
+      - name: Upload VSIX artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: oxide-sloc-vsix
+          path: src/OxideSloc/bin/Release/*.vsix
+          if-no-files-found: error

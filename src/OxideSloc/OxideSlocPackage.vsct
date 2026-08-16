@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <Extern href="stdidcmd.h" />
+  <Extern href="vsshlids.h" />
+
+  <Commands package="guidOxideSlocPackage">
+    <!-- A submenu on the top-level Tools menu, plus a group inside it. -->
+    <Menus>
+      <Menu guid="guidOxideSlocCmdSet" id="OxideSlocSubMenu" priority="0x0700" type="Menu">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_MM_TOOLSADDINEXT" />
+        <Strings>
+          <ButtonText>Oxide SLOC</ButtonText>
+          <CommandName>Oxide SLOC</CommandName>
+        </Strings>
+      </Menu>
+    </Menus>
+
+    <Groups>
+      <!-- Group hosting the commands inside the Tools > Oxide SLOC submenu. -->
+      <Group guid="guidOxideSlocCmdSet" id="OxideSlocMenuGroup" priority="0x0600">
+        <Parent guid="guidOxideSlocCmdSet" id="OxideSlocSubMenu" />
+      </Group>
+      <!-- Group placed on solution/project/item context menus. -->
+      <Group guid="guidOxideSlocCmdSet" id="OxideSlocContextGroup" priority="0x0600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE" />
+      </Group>
+    </Groups>
+
+    <Buttons>
+      <Button guid="guidOxideSlocCmdSet" id="AnalyzeSolutionCommand" priority="0x0100" type="Button">
+        <Parent guid="guidOxideSlocCmdSet" id="OxideSlocMenuGroup" />
+        <Strings>
+          <ButtonText>Analyze Solution</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidOxideSlocCmdSet" id="OpenReportCommand" priority="0x0200" type="Button">
+        <Parent guid="guidOxideSlocCmdSet" id="OxideSlocMenuGroup" />
+        <Strings>
+          <ButtonText>Open HTML Report</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidOxideSlocCmdSet" id="ServeCommand" priority="0x0300" type="Button">
+        <Parent guid="guidOxideSlocCmdSet" id="OxideSlocMenuGroup" />
+        <Strings>
+          <ButtonText>Start Web UI</ButtonText>
+        </Strings>
+      </Button>
+      <Button guid="guidOxideSlocCmdSet" id="ShowToolWindowCommand" priority="0x0400" type="Button">
+        <Parent guid="guidOxideSlocCmdSet" id="OxideSlocMenuGroup" />
+        <Strings>
+          <ButtonText>Metrics Window</ButtonText>
+        </Strings>
+      </Button>
+      <!-- Context-menu entry on a selected file/project node. -->
+      <Button guid="guidOxideSlocCmdSet" id="AnalyzeItemCommand" priority="0x0100" type="Button">
+        <Parent guid="guidOxideSlocCmdSet" id="OxideSlocContextGroup" />
+        <Strings>
+          <ButtonText>Analyze with oxide-sloc</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+  </Commands>
+
+  <Symbols>
+    <GuidSymbol name="guidOxideSlocPackage" value="{8f3a1c2e-5b6d-4e7f-9a0b-1c2d3e4f5a6b}" />
+    <GuidSymbol name="guidOxideSlocCmdSet" value="{2b4d6f8a-0c1e-4a3b-8c5d-7e9f0a1b2c3d}">
+      <IDSymbol name="OxideSlocSubMenu" value="0x1000" />
+      <IDSymbol name="OxideSlocMenuGroup" value="0x1010" />
+      <IDSymbol name="OxideSlocContextGroup" value="0x1020" />
+      <IDSymbol name="AnalyzeSolutionCommand" value="0x0100" />
+      <IDSymbol name="AnalyzeItemCommand" value="0x0101" />
+      <IDSymbol name="OpenReportCommand" value="0x0102" />
+      <IDSymbol name="ServeCommand" value="0x0103" />
+      <IDSymbol name="ShowToolWindowCommand" value="0x0104" />
+    </GuidSymbol>
+  </Symbols>
+</CommandTable>
