@@ -84,5 +84,9 @@
     <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.0.32112.339" ExcludeAssets="runtime" />
     <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.0.5232" />
   </ItemGroup>
-  <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
+  <!-- Base C# targets give the project the Build and Restore targets. The VSIX
+       packaging targets are contributed automatically by the Microsoft.VSSDK.BuildTools
+       package (auto-imported after restore), so no explicit VsSDK targets import is
+       needed and the project builds headlessly on CI without the VSSDK workload. -->
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
