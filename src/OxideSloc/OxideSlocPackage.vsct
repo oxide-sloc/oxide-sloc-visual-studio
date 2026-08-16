@@ -7,7 +7,7 @@
     <!-- A submenu on the top-level Tools menu, plus a group inside it. -->
     <Menus>
       <Menu guid="guidOxideSlocCmdSet" id="OxideSlocSubMenu" priority="0x0700" type="Menu">
-        <Parent guid="guidSHLMainMenu" id="IDG_VS_MM_TOOLSADDINEXT" />
+        <Parent guid="guidOxideSlocCmdSet" id="OxideSlocTopGroup" />
         <Strings>
           <ButtonText>Oxide SLOC</ButtonText>
           <CommandName>Oxide SLOC</CommandName>
@@ -16,6 +16,10 @@
     </Menus>
 
     <Groups>
+      <!-- Anchor group on the top-level Tools menu that hosts our submenu. -->
+      <Group guid="guidOxideSlocCmdSet" id="OxideSlocTopGroup" priority="0x0600">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS" />
+      </Group>
       <!-- Group hosting the commands inside the Tools > Oxide SLOC submenu. -->
       <Group guid="guidOxideSlocCmdSet" id="OxideSlocMenuGroup" priority="0x0600">
         <Parent guid="guidOxideSlocCmdSet" id="OxideSlocSubMenu" />
@@ -64,6 +68,7 @@
   <Symbols>
     <GuidSymbol name="guidOxideSlocPackage" value="{8f3a1c2e-5b6d-4e7f-9a0b-1c2d3e4f5a6b}" />
     <GuidSymbol name="guidOxideSlocCmdSet" value="{2b4d6f8a-0c1e-4a3b-8c5d-7e9f0a1b2c3d}">
+      <IDSymbol name="OxideSlocTopGroup" value="0x1005" />
       <IDSymbol name="OxideSlocSubMenu" value="0x1000" />
       <IDSymbol name="OxideSlocMenuGroup" value="0x1010" />
       <IDSymbol name="OxideSlocContextGroup" value="0x1020" />
