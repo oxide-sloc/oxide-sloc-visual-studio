@@ -84,9 +84,13 @@
     <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.0.32112.339" ExcludeAssets="runtime" />
     <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.0.5232" />
   </ItemGroup>
-  <!-- Base C# targets give the project the Build and Restore targets. The VSIX
-       packaging targets are contributed automatically by the Microsoft.VSSDK.BuildTools
-       package (auto-imported after restore), so no explicit VsSDK targets import is
-       needed and the project builds headlessly on CI without the VSSDK workload. -->
+  <!-- Base C# targets give the project the Build and Restore targets even before the
+       VSSDK targets are available, which lets NuGet restore run headlessly (otherwise
+       restore is skipped with NU1503 and there is no Build target). -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- VSIX packaging (CreateVsixContainer, pkgdef generation). $(VSToolsPath) is set to
+       the restored Microsoft.VSSDK.BuildTools package tools folder, so this resolves
+       after restore without needing the VSSDK workload installed. Exists() guards the
+       pre-restore evaluation pass. -->
+  <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="Exists('$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets')" />
 </Project>
