@@ -5,6 +5,7 @@
     <DisplayName>oxide-sloc</DisplayName>
     <Description xml:space="preserve">Run oxide-sloc code-metrics reports from Visual Studio: analyze the solution or a selected item, view the HTML report, and see SLOC in a tool window.</Description>
     <MoreInfo>https://github.com/oxide-sloc/oxide-sloc</MoreInfo>
+    <Icon>Resources\OxideSloc.png</Icon>
     <Tags>sloc, lines of code, code metrics, coverage, oxide-sloc</Tags>
   </Metadata>
   <Installation>

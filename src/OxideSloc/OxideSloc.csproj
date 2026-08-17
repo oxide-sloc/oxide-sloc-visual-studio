@@ -77,6 +77,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\OxideSloc.png">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <VSCTCompile Include="OxideSlocPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>
